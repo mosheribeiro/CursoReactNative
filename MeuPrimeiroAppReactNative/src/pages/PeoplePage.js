@@ -52,7 +52,7 @@ export default class PeoplePage extends React.Component {
           this.state.loading
             ? <ActivityIndicator size='large' color='#6ca2f7' />
             : this.state.error
-              ? <Text style={styles.error}>Problemas de conexão. Tente novamente!</Text>
+              ? <Text style={styles.error}>Problemas de conexão. Tente novamente!!!</Text>
               : <PeopleList peoples={this.state.peoples}
                 onPressItem={(pageParams) => {
                   this.props.navigation.navigate('PeopleDetail', pageParams);
