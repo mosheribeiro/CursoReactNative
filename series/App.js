@@ -1,19 +1,28 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+import { createAppContainer, createStackNavigator} from 'react-navigation';
+import LoginPage from './src/pages/LoginPage';
+const AppNavigator = createStackNavigator({
+  'Login':{
+    screen: LoginPage,
+    navigationOptions:{
+      title:'Bem vindo!',
+    }
   },
-});
+},{
+  defaultNavigationOptions: {
+    title: 'Séries!',
+    headerTintColor: 'white',
+    headerStyle:{
+      backgroundColor: '#6ca2f7',
+      borderBottomWidth: 1,
+      borderBottomColor: '#C5C5C5',
+    },
+    headerTitleStyle:{
+      color:'white',
+      fontSize: 30,
+    }
+  }
+})
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default AppContainer;
