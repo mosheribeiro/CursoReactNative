@@ -1,5 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, Button, ActivityIndicator } from 'react-native';
+import {
+    View, StyleSheet, TextInput,
+    Button, ActivityIndicator, Text, Alert
+} from 'react-native';
 import firebase from 'firebase';
 
 import FormRow from '../components/FormRow';
@@ -12,6 +15,7 @@ export default class LoginPage extends React.Component {
             mail: '',
             password: '',
             isLoading: false,
+            message: '',
         }
     }
 
@@ -35,26 +39,84 @@ export default class LoginPage extends React.Component {
             [field]: value
         });
     }
+
+    renderMessage() {
+        const { message } = this.state;
+        if (!message)// se não tem nada na  mensagem
+            return null;
+        return (
+            <View>
+                <Text>{message}</Text>
+            </View>
+        );
+    }
+
     tryLogin() {
         this.setState({
-            isLoading : true,
+            isLoading: true,
+            message: '',
         });
+
+        const loginUserSuccess = user => {
+            this.setState({ message: 'Sucesso!' });
+        }
+
+        const loginUserFailed = error => {
+            this.setState({ message: this.getMessageByErrorCode(error.code) });
+        }
+
         const { mail, password } = this.state;
         firebase
             .auth()
             .signInWithEmailAndPassword(mail, password)
             .then(user => {
-                console.log('Usuário autenticado!!!', user);
+                loginUserSuccess(user);
+                //console.log('Usuário autenticado!!!', user);
             })
             .catch(error => {
-                console.log('Usuário não encontrado!!!', error)
+                if (error.code == 'auth/user-not-found') {
+                    Alert.alert('Usuário não encontrado',
+                        'Deseja criar um cadastro com as informações inseridas?',
+                        [{
+                            text: 'Não',
+                            onPress: () => { console.log('Usuário não quer criar uma conta.') },
+                            style: 'cancel' //somente para IOS
+                        }, {
+                            text: 'Sim',
+                            onPress: () => {
+                                firebase.auth()
+                                    .createUserWithEmailAndPassword(mail, password)
+                                    .then(user => {
+                                        loginUserSuccess(user);
+                                    })
+                                    .catch(error => {
+                                        loginUserFailed(error)
+                                    })
+                            }
+                        }],
+                        { cancelable: false }// não permite o usuário clicar fora do alert
+                    );
+                }
+                else loginUserFailed(error);
+                //console.log('Usuário não encontrado!!!', error)
+
             })
-            .then(()=> this.setState({isLoading:false}));
+            .then(() => this.setState({ isLoading: false }));
     }
 
+    getMessageByErrorCode(errorCode) {
+        switch (errorCode) {
+            case 'auth/wrong-password':
+                return 'Senha incorreta';
+            case 'auth/user-not-found':
+                return 'Usuário não encontrado'
+            default:
+                return 'Erro não identificado';
+        }
+    }
     renderButton() {
-        if(this.state.isLoading)
-            return <ActivityIndicator/>;
+        if (this.state.isLoading)
+            return <ActivityIndicator />;
 
         return (<Button title='Entrar'
             onPress={() => this.tryLogin()}
@@ -81,6 +143,7 @@ export default class LoginPage extends React.Component {
                     />
                 </FormRow>
                 {this.renderButton()}
+                {this.renderMessage()}
             </View>
         )
     }
