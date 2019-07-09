@@ -2,30 +2,33 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import Input from './Input';
 import { connect } from 'react-redux';
-import { addTodo } from '../actions/Index';
+import { addTodo, setTodoText } from '../actions/Index';
 
 
 class TodoForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            text: ''
-        }
-
-    }
+    /*     constructor(props) {
+            super(props);
+            this.state = {
+                text: ''
+            }
+    
+        } */
 
     onChangeText(text) {
-        this.setState({
-            text: text,
-        });
+        this.props.dispatchSetTodoText(text);
+        /*         this.setState({
+                    text: text,
+                }); */
     }
 
     onPress() {
         this.props.dispatchAddTodo(this.state.text);
+        /*         this.setState({ text: '' }); */
+
     }
 
     render() {
-        const { text } = this.state;
+        const { text } = this.props.todo;
         return (
             <View style={styles.formContainer}>
                 <View style={styles.inputContainer}>
@@ -57,9 +60,17 @@ class TodoForm extends React.Component {
         dispatchAddTodo:addTodo
 } */
 
-export default connect(null, /*mapDispatchToProps*/{
-    dispatchAddTodo:addTodo}
-    )(TodoForm);
+const mapStateToProps = state => {
+    return {
+        todo: state.editingTodo
+    }
+}
+
+export default connect(mapStateToProps, /*mapDispatchToProps*/
+    {
+        dispatchAddTodo: addTodo,
+        dispatchSetTodoText: setTodoText
+    })(TodoForm);
 
 const styles = StyleSheet.create({
     formContainer: {
