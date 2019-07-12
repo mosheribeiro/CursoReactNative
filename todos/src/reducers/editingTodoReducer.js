@@ -1,4 +1,4 @@
-import { SET_TODO_TEXT } from "../actions/Index";
+import { SET_TODO_TEXT, ADD_TODO, SET_EDITING_TODO, UPDATE_TODO } from "../actions/Index";
 
 const INITIAL_STATE = {
     id: null,
@@ -9,11 +9,16 @@ const INITIAL_STATE = {
 const editingTodoReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SET_TODO_TEXT:
-        return{
-            ...state,
-            text: action.text
-        }
-
+            return {
+                ...state,
+                text: action.text
+            }
+        case ADD_TODO:
+            return INITIAL_STATE;
+        case UPDATE_TODO:
+            return INITIAL_STATE;
+        case SET_EDITING_TODO:
+            return action.todo;
         default:
             return state;
     }
