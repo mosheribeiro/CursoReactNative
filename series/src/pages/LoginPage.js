@@ -5,6 +5,9 @@ import {
 } from 'react-native';
 import firebase from 'firebase';
 
+import {connect} from 'react-redux';
+import {tryLogin} from '../actions';
+
 import FormRow from '../components/FormRow';
 
 
@@ -57,51 +60,10 @@ export default class LoginPage extends React.Component {
             message: '',
         });
 
-        const loginUserSuccess = user => {
-            this.setState({ message: 'Sucesso!' });
-        }
+        const { mail: email, password } = this.state;
 
-        const loginUserFailed = error => {
-            this.setState({ message: this.getMessageByErrorCode(error.code) });
-        }
+        this.props.tryLogin({email, password})
 
-        const { mail, password } = this.state;
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(mail, password)
-            .then(user => {
-                loginUserSuccess(user);
-                //console.log('Usuário autenticado!!!', user);
-            })
-            .catch(error => {
-                if (error.code == 'auth/user-not-found') {
-                    Alert.alert('Usuário não encontrado',
-                        'Deseja criar um cadastro com as informações inseridas?',
-                        [{
-                            text: 'Não',
-                            onPress: () => { console.log('Usuário não quer criar uma conta.') },
-                            style: 'cancel' //somente para IOS
-                        }, {
-                            text: 'Sim',
-                            onPress: () => {
-                                firebase.auth()
-                                    .createUserWithEmailAndPassword(mail, password)
-                                    .then(user => {
-                                        loginUserSuccess(user);
-                                    })
-                                    .catch(error => {
-                                        loginUserFailed(error)
-                                    })
-                            }
-                        }],
-                        { cancelable: false }// não permite o usuário clicar fora do alert
-                    );
-                }
-                else loginUserFailed(error);
-                //console.log('Usuário não encontrado!!!', error)
-
-            })
-            .then(() => this.setState({ isLoading: false }));
     }
 
     getMessageByErrorCode(errorCode) {
@@ -161,3 +123,5 @@ const styles = StyleSheet.create({
     }
 
 });
+
+export default connect(null, {tryLogin})(LoginPage);
