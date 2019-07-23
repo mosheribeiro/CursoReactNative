@@ -6,12 +6,13 @@ import {
 import firebase from 'firebase';
 
 import {connect} from 'react-redux';
-import {tryLogin} from '../actions';
+
+import {tryLogin} from '../actions/index';
 
 import FormRow from '../components/FormRow';
 
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -62,7 +63,7 @@ export default class LoginPage extends React.Component {
 
         const { mail: email, password } = this.state;
 
-        this.props.tryLogin({email, password})
+       this.props.tryLogin({email, password})
 
     }
 
@@ -120,8 +121,8 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
         paddingBottom: 5,
-    }
+    },
 
 });
 
-export default connect(null, {tryLogin})(LoginPage);
+export default connect(null, {tryLogin})(LoginPage)

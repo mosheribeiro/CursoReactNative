@@ -9,19 +9,10 @@ const userLogout = () => ({
     type: USER_LOGOUT,
 });
 
-export const tryLogin = ({email, password}) => ({
-
-/*     const loginUserSuccess = user => {
-        this.setState({ message: 'Sucesso!' });
-    }
-
-    const loginUserFailed = error => {
-        this.setState({ message: this.getMessageByErrorCode(error.code) });
-    } */
-
+export const tryLogin = ({ email, password }) => dispatch => {
     firebase
         .auth()
-        .signInWithEmailAndPassword(mail, password)
+        .signInWithEmailAndPassword(email, password)
         .then(user => {
             loginUserSuccess(user);
             //console.log('Usuário autenticado!!!', user);
@@ -55,4 +46,4 @@ export const tryLogin = ({email, password}) => ({
 
         })
         .then(() => this.setState({ isLoading: false }));
-});
+}
