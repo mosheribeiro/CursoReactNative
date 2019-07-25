@@ -5,9 +5,9 @@ import {
 } from 'react-native';
 import firebase from 'firebase';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {tryLogin} from '../actions/index';
+import { tryLogin } from '../actions/index';
 
 import FormRow from '../components/FormRow';
 
@@ -63,8 +63,12 @@ class LoginPage extends React.Component {
 
         const { mail: email, password } = this.state;
 
-       this.props.tryLogin({email, password})
-
+        this.props.tryLogin({ email, password })
+            .then(() => {
+                this.setState({ message: "Sucesso!" });
+                //this.props.navigation.navigate('Main');
+                this.props.navigation.replace('Main'); // com o replace a seta de volar desaparece
+            });
     }
 
     getMessageByErrorCode(errorCode) {
@@ -125,4 +129,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default connect(null, {tryLogin})(LoginPage)
+export default connect(null, { tryLogin })(LoginPage)

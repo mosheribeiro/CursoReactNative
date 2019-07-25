@@ -1,21 +1,23 @@
-const USER_LOGIN = 'USER_LOGIN';
-const userLogin = user => ({
-    type: USER_LOGIN,
+import firebase from 'firebase';
+
+
+export const USER_LOGIN_SUCESS = 'USER_LOGIN_SUCESS';
+const userLoginSucess = user => ({
+    type: USER_LOGIN_SUCESS,
     user
 });
 
-const USER_LOGOUT = 'USER_LOGOUT';
+export const USER_LOGOUT = 'USER_LOGOUT';
 const userLogout = () => ({
     type: USER_LOGOUT,
 });
 
 export const tryLogin = ({ email, password }) => dispatch => {
-    firebase
+  return firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(user => {
-            loginUserSuccess(user);
-            //console.log('Usuário autenticado!!!', user);
+            dispatch(userLoginSucess(user));
         })
         .catch(error => {
             if (error.code == 'auth/user-not-found') {
@@ -29,7 +31,7 @@ export const tryLogin = ({ email, password }) => dispatch => {
                         text: 'Sim',
                         onPress: () => {
                             firebase.auth()
-                                .createUserWithEmailAndPassword(mail, password)
+                                .createUserWithEmailAndPassword(email, password)
                                 .then(user => {
                                     loginUserSuccess(user);
                                 })
@@ -43,7 +45,5 @@ export const tryLogin = ({ email, password }) => dispatch => {
             }
             else loginUserFailed(error);
             //console.log('Usuário não encontrado!!!', error)
-
         })
-        .then(() => this.setState({ isLoading: false }));
 }
