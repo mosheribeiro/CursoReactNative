@@ -66,7 +66,7 @@ class LoginPage extends React.Component {
         this.props.tryLogin({ email, password })
             .then((user) => {
                 if (user) {
-                    this.props.navigation.replace('Main'); // com o replace a seta de volar desaparece
+                    this.props.navigation.replace('Series'); // com o replace a seta de volar desaparece
                 }
                 else { // para não usar o else pode colocar o return na linha que faz o redirecionamento
                     this.setState({
