@@ -114,6 +114,8 @@ class LoginPage extends React.Component {
                         placeholder="usuario@mail.com"
                         value={this.state.mail}
                         onChangeText={value => this.onChangeHandler('mail', value)}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                     />
                 </FormRow>
                 <FormRow last>
