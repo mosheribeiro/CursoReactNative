@@ -64,11 +64,24 @@ class LoginPage extends React.Component {
         const { mail: email, password } = this.state;
 
         this.props.tryLogin({ email, password })
-            .then(() => {
-                this.setState({ message: "Sucesso!" });
-                //this.props.navigation.navigate('Main');
-                this.props.navigation.replace('Main'); // com o replace a seta de volar desaparece
-            });
+            .then((user) => {
+                if (user) {
+                    this.props.navigation.replace('Main'); // com o replace a seta de volar desaparece
+                }
+                else { // para não usar o else pode colocar o return na linha que faz o redirecionamento
+                    this.setState({
+                        isLoading: false,
+                        message: '',
+                    })
+                }
+            })
+            .catch(error => {
+                console.log('caiu no error', error.code);
+                this.setState({
+                    isLoading: false,
+                    message: this.getMessageByErrorCode(error.code),
+                });
+            })
     }
 
     getMessageByErrorCode(errorCode) {
@@ -77,6 +90,8 @@ class LoginPage extends React.Component {
                 return 'Senha incorreta';
             case 'auth/user-not-found':
                 return 'Usuário não encontrado'
+            case 'auth/invalid-email':
+                return 'email inválido!'
             default:
                 return 'Erro não identificado';
         }
