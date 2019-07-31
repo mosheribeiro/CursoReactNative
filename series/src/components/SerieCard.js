@@ -1,10 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 
 const SerieCard = ({ serie }) => (
     <View style={styles.container}>
         <View style={styles.card}>
-            <Text>{`${serie.id} - ${serie.title}`}</Text>
+            <Image
+                source={{
+                    uri: serie.img
+                }}
+                aspectRatio={1} // precisa especificar a altura e não distorce a imagem
+                resizeMode="cover" //default
+            />
+            <View style={styles.cardTitleWrapper}>
+                <Text style={styles.cardTitle}>{serie.title}</Text>
+            </View>
         </View>
     </View>
 );
@@ -12,15 +21,21 @@ const SerieCard = ({ serie }) => (
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding:10,
+        padding: 10,
         height: Dimensions.get('window').width / 2,
-
-        borderWidth: 1,
-        borderColor: '#FF0000',
     },
     card: {
         flex: 1,
         borderWidth: 1,
+    },
+    cardTitleWrapper: {
+        backgroundColor: 'pink',
+        height: 50,
+        position: 'absolute',
+        bottom: 0,
+    },
+    cardTitle: {
+
     }
 });
 
