@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 
-const SerieCard = ({ serie }) => (
-    <View style={styles.container}>
+const SerieCard = ({ serie, isFirstColumn }) => (
+    <View style={[styles.container, isFirstColumn ? styles.firstColumn : styles.lastColumn]}>
         <View style={styles.card}>
             <Image
                 source={{
@@ -20,8 +20,9 @@ const SerieCard = ({ serie }) => (
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 10,
+        //flex: 0.5,
+        width: '50%',
+        padding: 5,
         height: Dimensions.get('window').width / 2,
     },
     card: {
@@ -29,13 +30,31 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     cardTitleWrapper: {
-        backgroundColor: 'pink',
+        backgroundColor: 'black',
         height: 50,
         position: 'absolute',
         bottom: 0,
+        opacity: .8, //equivalente a 0.8
+
+        width: '100%',
+
+        paddingTop: 10,
+        paddingBottom: 10,
+
+        paddingLeft: 3,
+        paddingRight: 3,
+        alignItems: 'center',
     },
     cardTitle: {
-
+        color: 'white',
+        fontSize: 15,
+        fontWeight: 'bold',
+    },
+    firstColumn: {
+        paddingLeft: 10,
+    },
+    lastColumn: {
+        paddingRight: 10,
     }
 });
 
