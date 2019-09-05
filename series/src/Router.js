@@ -1,7 +1,9 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import LoginPage from './pages/LoginPage';
 import SeriesPage from './pages/SeriesPage';
+import SerieDetailPage from './pages/SerieDetailPage';
 const AppNavigator = createStackNavigator({
+
   'Series': {
     screen: SeriesPage,
     navigationOptions: {
@@ -12,8 +14,17 @@ const AppNavigator = createStackNavigator({
       navigationOptions: {
         title: 'Bem vindo!',
       }
-    }
+    },  
+
+    'SerieDetail': {
+      screen: SerieDetailPage,
+      navigationOptions: {
+        title: 'Página de detalhes',
+      }
+    },
+
   },
+
 }, {
     defaultNavigationOptions: {
       title: 'Séries!',
