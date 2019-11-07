@@ -1,0 +1,11 @@
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\bin\Debug\netcoreapp3.0\grafo.exe
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\bin\Debug\netcoreapp3.0\grafo.deps.json
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\bin\Debug\netcoreapp3.0\grafo.runtimeconfig.json
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\bin\Debug\netcoreapp3.0\grafo.runtimeconfig.dev.json
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\bin\Debug\netcoreapp3.0\grafo.dll
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\bin\Debug\netcoreapp3.0\grafo.pdb
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\obj\Debug\netcoreapp3.0\grafo.csprojAssemblyReference.cache
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\obj\Debug\netcoreapp3.0\grafo.AssemblyInfoInputs.cache
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\obj\Debug\netcoreapp3.0\grafo.AssemblyInfo.cs
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\obj\Debug\netcoreapp3.0\grafo.dll
+C:\Users\Moshe-VM\Documents\Workspace C#\grafo\obj\Debug\netcoreapp3.0\grafo.pdb
